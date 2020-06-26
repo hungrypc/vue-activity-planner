@@ -20,3 +20,17 @@ export const fetchGoals = () => {
     }
   }
 }
+
+export const fetchCategories = () => {
+  return {
+    "1546969049": { text: "books" },
+    "1546969225": { text: "movies" }
+  }
+}
+
+export const fetchUser = () => {
+  return {
+    name: "Phil Chan",
+    id: "-Aj34jknvncx98812"
+  }
+}

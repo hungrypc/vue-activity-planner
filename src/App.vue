@@ -43,8 +43,14 @@
               </div>
               <div class="field is-grouped">
                 <div class="control">
-                  <button class="button is-link" @click="createNewGoal">Create Goal</button>
-                  <button class="button" v-if="isFormDisplayed" @click="toggleFormDisplay">Hide Form</button>
+                  <button 
+                    class="button is-link" 
+                    @click="createNewGoal"
+                    :disabled="!isFormValid"
+                  >
+                    Create Goal
+                  </button>
+                  <button class="button is-text" v-if="isFormDisplayed" @click="toggleFormDisplay">Cancel</button>
                 </div>
               </div>
             </form>
@@ -62,7 +68,7 @@
 
 <script>
 import Goal from "./components/Goal";
-import { fetchGoals } from '@/api'
+import { fetchGoals, fetchCategories, fetchUser } from '@/api'
 
 export default {
   name: "App",
@@ -71,34 +77,27 @@ export default {
   },
   data() {
     return {
-      user: {
-        name: "Phil Chan",
-        id: "-Aj34jknvncx98812"
-      },
+      user: {},
       newGoal: {
         title: "",
         notes: ""
       },
       isFormDisplayed: false,
-      goals: {  
-      },
-      categories: {
-        "1546969049": { text: "books" },
-        "1546969225": { text: "movies" }
-      }
+      goals: {},
+      categories: {}
     };
   },
   created() {
     this.goals = fetchGoals()
+    this.user = fetchUser()
+    this.categories = fetchCategories()
   },
   methods: {
     toggleFormDisplay() {
       this.isFormDisplayed = !this.isFormDisplayed;
     },
     createNewGoal() {
-      const id = Math.random()
-        .toString(10)
-        .substr(2, 10);
+      const id = Math.random().toString(10).substr(2, 10);
       this.goals = {
         ...this.goals,
         [id]: {
@@ -116,6 +115,11 @@ export default {
         notes: ""
       };
       this.isFormDisplayed = false;
+    }
+  },
+  computed: {
+    isFormValid() {
+      return this.newGoal.title
     }
   }
 };
