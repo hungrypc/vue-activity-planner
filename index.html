@@ -1,17 +1,20 @@
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Forum - Free Bulma template</title>
-    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <!-- Bulma Version 0.7.2-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/index.css">
-  </head>
-  <body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Forum - Free Bulma template</title>
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <!-- Bulma Version 0.7.2-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+  <link rel="stylesheet" type="text/css" href="./css/index.css">
+</head>
+
+<body>
+  <div id="app">
     <nav class="navbar is-white topNav">
       <div class="container">
         <div class="navbar-brand">
@@ -31,6 +34,9 @@
       </div>
     </nav>
     <section class="container">
+      <div v-if="isTextDisplayed">
+        <h1 v-bind:title="titleMessage">{{ message }}</h1>
+      </div>
       <div class="columns">
         <div class="column is-3">
           <a class="button is-primary is-block is-alt is-large" href="#">New Activity</a>
@@ -81,5 +87,44 @@
         </div>
       </div>
     </section>
-  </body>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello World',
+        titleMessage: 'Title Message',
+        isTextDisplayed: true,
+        user: {
+          name: 'Phil Chan',
+          id: '-Aj34jknvncx98812',
+        },
+        goals: {
+          '1546968934': {
+            title: 'Learn Vue.js',
+            notes: 'Started new vue course',
+            progress: 0,
+            category: '1546969049',
+            createdAt: 1546969144391,
+            updatedAt: 1546969144391
+          },
+          '1546969212': {
+            title: 'Read Malcolm Gladwell Books',
+            notes: 'Good stuff',
+            progress: 0,
+            category: '1546969049',
+            createdAt: 1546969144391,
+            updatedAt: 1546969144391
+          }
+        },
+        categories: {
+          '1546969049': { text: 'books' },
+          '1546969225': { text: 'movies' }
+        }
+      }
+    })
+  </script>
+</body>
+
 </html>
