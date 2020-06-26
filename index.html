@@ -18,7 +18,7 @@
     <nav class="navbar is-white topNav">
       <div class="container">
         <div class="navbar-brand">
-          <h1>Activity Planner</h1>
+          <h1>Goal Planner</h1>
         </div>
       </div>
     </nav>
@@ -36,7 +36,24 @@
     <section class="container">
       <div class="columns">
         <div class="column is-3">
-          <a class="button is-primary is-block is-alt is-large" href="#">New Activity</a>
+          <a @click="isFormDisplayed = !isFormDisplayed" class="button is-primary is-block is-alt is-large" href="#">New
+            Goal
+          </a>
+          <div v-if="isFormDisplayed" class="create-form">
+            <form>
+              <div class="field">
+                </br>
+                <div class="control">
+                  <input v-model="newGoal.title" class="input" type="text" placeholder="Goal title">
+                </div>
+              </div>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button class="button is-link">Create Goal</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
         <div class="column is-9">
           <div class="box content">
@@ -70,13 +87,14 @@
     let app = new Vue({
       el: '#app',
       data: {
-        message: 'Hello World',
-        titleMessage: 'Title Message',
-        isTextDisplayed: true,
         user: {
           name: 'Phil Chan',
           id: '-Aj34jknvncx98812',
         },
+        newGoal: {
+          title: ''
+        },
+        isFormDisplayed: false,
         goals: {
           '1546968934': {
             title: 'Learn Vue.js',
@@ -103,7 +121,7 @@
       methods: {
         toggleTextDisplay() {
           this.isTextDisplayed = !this.isTextDisplayed
-        }
+        },
       }
     })
   </script>
