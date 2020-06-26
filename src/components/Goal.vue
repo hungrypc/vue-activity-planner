@@ -1,12 +1,10 @@
-Vue.component('goal-item', {
-  props: ['goal', 'user'],
-  template: `
-    <article class="post" >
+<template>
+  <article class="post">
     <h4>{{ goal.title }}</h4>
     <div class="media">
       <div class="media-left">
         <p class="image is-32x32">
-          <img src="./images/user.png">
+          <img src="../assets/images/user.png" />
         </p>
       </div>
       <div class="media-content">
@@ -20,6 +18,28 @@ Vue.component('goal-item', {
         <span>Progress Bar Here</span>
       </div>
     </div>
-    </article>
-  `
-})
+  </article>
+</template>
+
+<script>
+export default {
+  name: "goal-item",
+  props: {
+    goal: {
+      title: String,
+      notes: String,
+      progress: Number,
+      category: String,
+      createdAt: Date,
+      updatedAt: Date
+    },
+    user: {
+      name: String,
+      id: String
+    }
+  }
+};
+</script>
+
+<style>
+</style>
