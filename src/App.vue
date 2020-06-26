@@ -27,8 +27,7 @@
             class="button is-primary is-block is-alt is-large"
             href="#"
           >
-            New
-            Goal
+            New Goal
           </a>
           <div v-if="isFormDisplayed" class="create-form">
             <form>
@@ -63,6 +62,7 @@
 
 <script>
 import Goal from "./components/Goal";
+import { fetchGoals } from '@/api'
 
 export default {
   name: "App",
@@ -80,31 +80,16 @@ export default {
         notes: ""
       },
       isFormDisplayed: false,
-      goals: {
-        "1546968934": {
-          id: "1546968934",
-          title: "Learn Vue.js",
-          notes: "Started new vue course",
-          progress: 0,
-          category: "1546969049",
-          createdAt: 1546969144391,
-          updatedAt: 1546969144391
-        },
-        "1546969212": {
-          id: "1546969212",
-          title: "Read Malcolm Gladwell Books",
-          notes: "Good stuff",
-          progress: 0,
-          category: "1546969049",
-          createdAt: 1546969144391,
-          updatedAt: 1546969144391
-        }
+      goals: {  
       },
       categories: {
         "1546969049": { text: "books" },
         "1546969225": { text: "movies" }
       }
     };
+  },
+  created() {
+    this.goals = fetchGoals()
   },
   methods: {
     toggleFormDisplay() {
@@ -176,20 +161,7 @@ aside.menu .menu-label {
   height: 3rem;
   line-height: 2.8;
 }
-.media-left img {
-  border-radius: 50%;
-}
-.media-content p {
-  font-size: 14px;
-  line-height: 2.3;
-  font-weight: 700;
-  color: #8f99a3;
-}
-article.post {
-  margin: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e6eaee;
-}
+
 article.post:last-child {
   padding-bottom: 0;
   border-bottom: none;
