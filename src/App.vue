@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import Goal from './components/Goal'
+import Goal from "./components/Goal";
 
 export default {
   name: "App",
@@ -103,50 +103,53 @@ export default {
       categories: {
         "1546969049": { text: "books" },
         "1546969225": { text: "movies" }
-      },
-      methods: {
-        toggleFormDisplay() {
-          this.isFormDisplayed = !this.isFormDisplayed
-        },
-        createNewGoal() {
-          const id = Math.random().toString(10).substr(2, 10)
-          this.goals = {
-            ...this.goals,
-            [id]: {
-              id,
-              title: this.newGoal.title,
-              notes: this.newGoal.notes,
-              progress: 0,
-              category: 'dummy',
-              createdAt: new Date(),
-              updatedAt: new Date()
-            }
-          }
-          this.newGoal = {
-            title: '',
-            notes: ''
-          }
-          this.isFormDisplayed = false
-        }
       }
     };
+  },
+  methods: {
+    toggleFormDisplay() {
+      this.isFormDisplayed = !this.isFormDisplayed;
+    },
+    createNewGoal() {
+      const id = Math.random()
+        .toString(10)
+        .substr(2, 10);
+      this.goals = {
+        ...this.goals,
+        [id]: {
+          id,
+          title: this.newGoal.title,
+          notes: this.newGoal.notes,
+          progress: 0,
+          category: "dummy",
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+      };
+      this.newGoal = {
+        title: "",
+        notes: ""
+      };
+      this.isFormDisplayed = false;
+    }
   }
 };
 </script>
 
 <style>
-html,body {
-  font-family: 'Open Sans', serif;
-  background: #F2F6FA;
+html,
+body {
+  font-family: "Open Sans", serif;
+  background: #f2f6fa;
 }
 footer {
-  background-color: #F2F6FA !important;
+  background-color: #f2f6fa !important;
 }
 .topNav {
-  border-top: 5px solid #3498DB;
+  border-top: 5px solid #3498db;
 }
 .topNav .container {
-  border-bottom: 1px solid #E6EAEE;
+  border-bottom: 1px solid #e6eaee;
 }
 .container .columns {
   margin: 3rem 0;
@@ -180,18 +183,18 @@ aside.menu .menu-label {
   font-size: 14px;
   line-height: 2.3;
   font-weight: 700;
-  color: #8F99A3;
+  color: #8f99a3;
 }
 article.post {
   margin: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #E6EAEE;
+  border-bottom: 1px solid #e6eaee;
 }
 article.post:last-child {
   padding-bottom: 0;
   border-bottom: none;
 }
-.menu-list li{
+.menu-list li {
   padding: 5px;
 }
 
