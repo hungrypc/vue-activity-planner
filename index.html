@@ -57,32 +57,14 @@
         </div>
         <div class="column is-9">
           <div class="box content">
-            <article class="post" v-for="goal in goals">
-              <h4>{{ goal.title }}</h4>
-              <div class="media">
-                <div class="media-left">
-                  <p class="image is-32x32">
-                    <img src="./images/user.png">
-                  </p>
-                </div>
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <a href="#">{{ user.name }}</a> updated 34 minutes ago &nbsp;
-                    </p>
-                  </div>
-                </div>
-                <div class="media-right">
-                  <span>Progress Bar Here</span>
-                </div>
-              </div>
-            </article>
+            <goal-item v-for="goal in goals" :goal="goal" :user="user" :key="goal.id"></goal-item>
           </div>
         </div>
       </div>
     </section>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="./components/Goal.js"></script>
   <script>
     let app = new Vue({
       el: '#app',
@@ -97,6 +79,7 @@
         isFormDisplayed: false,
         goals: {
           '1546968934': {
+            id: '1546968934',
             title: 'Learn Vue.js',
             notes: 'Started new vue course',
             progress: 0,
@@ -105,6 +88,7 @@
             updatedAt: 1546969144391
           },
           '1546969212': {
+            id:'1546969212',
             title: 'Read Malcolm Gladwell Books',
             notes: 'Good stuff',
             progress: 0,
