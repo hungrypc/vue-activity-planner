@@ -3,10 +3,8 @@
     <nav-bar></nav-bar>
     <section class="container">
       <div class="columns">
-        <goal-form
-          :isFormDisplayed="isFormDisplayed"
-          :newGoal="newGoal"
-          :toggleFormDisplay="toggleFormDisplay"
+        <goal-form          
+          :newGoal="newGoal"          
           :createNewGoal="createNewGoal"
           :categories="categories"
         ></goal-form>
@@ -43,7 +41,6 @@ export default {
         notes: "",
         category: ""
       },
-      isFormDisplayed: false,
       goals: {},
       categories: {}
     };
@@ -54,9 +51,6 @@ export default {
     this.categories = fetchCategories()
   },
   methods: {
-    toggleFormDisplay() {
-      this.isFormDisplayed = !this.isFormDisplayed;
-    },
     createNewGoal() {
       const id = Math.random().toString(10).substr(2, 10);
       console.log(this.newGoal.category)

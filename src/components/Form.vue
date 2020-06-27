@@ -46,10 +46,14 @@ export default {
   name: "goal-form",
   props: {
     isFormDisplayed: Boolean,
-    toggleFormDisplay: Function,
     newGoal: Object,
     createNewGoal: Function,
     categories: Object
+  },
+  methods: {
+    toggleFormDisplay() {
+      this.isFormDisplayed = !this.isFormDisplayed;
+    },
   },
   computed: {
     isFormValid() {
