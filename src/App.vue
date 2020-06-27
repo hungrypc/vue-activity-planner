@@ -8,6 +8,7 @@
           :newGoal="newGoal"
           :toggleFormDisplay="toggleFormDisplay"
           :createNewGoal="createNewGoal"
+          :categories="categories"
         ></goal-form>
         <div class="column is-9">
           <div class="box content">
@@ -39,7 +40,8 @@ export default {
       user: {},
       newGoal: {
         title: "",
-        notes: ""
+        notes: "",
+        category: ""
       },
       isFormDisplayed: false,
       goals: {},
@@ -57,6 +59,7 @@ export default {
     },
     createNewGoal() {
       const id = Math.random().toString(10).substr(2, 10);
+      console.log(this.newGoal.category)
       this.goals = {
         ...this.goals,
         [id]: {
@@ -64,14 +67,15 @@ export default {
           title: this.newGoal.title,
           notes: this.newGoal.notes,
           progress: 0,
-          category: "dummy",
+          category: this.newGoal.category,
           createdAt: new Date(),
           updatedAt: new Date()
         }
       };
       this.newGoal = {
         title: "",
-        notes: ""
+        notes: "",
+        category: ""
       };
       this.isFormDisplayed = false;
     }

@@ -18,6 +18,14 @@
             <textarea v-model="newGoal.notes" class="textarea" placeholder="Notes"></textarea>
           </div>
         </div>
+        <div class="field">
+          <div class="control">
+            <select v-model='newGoal.category' class="select">
+              <option disabled value="">Please select a category</option>
+              <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.text }}</option>              
+            </select>
+          </div>
+        </div>
         <div class="field is-grouped">
           <div class="control">
             <button
@@ -40,7 +48,8 @@ export default {
     isFormDisplayed: Boolean,
     toggleFormDisplay: Function,
     newGoal: Object,
-    createNewGoal: Function
+    createNewGoal: Function,
+    categories: Object
   },
   computed: {
     isFormValid() {
