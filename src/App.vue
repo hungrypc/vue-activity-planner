@@ -1,61 +1,14 @@
 <template>
   <div>
-    <nav class="navbar is-white topNav">
-      <div class="container">
-        <div class="navbar-brand">
-          <h1>Goal Planner</h1>
-        </div>
-      </div>
-    </nav>
-    <nav class="navbar is-white">
-      <div class="container">
-        <div class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item is-active" href="#">Newest</a>
-            <a class="navbar-item" href="#">In Progress</a>
-            <a class="navbar-item" href="#">Finished</a>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <nav-bar></nav-bar>
     <section class="container">
       <div class="columns">
-        <div class="column is-3">
-          <a
-            @click="toggleFormDisplay"
-            v-if="!isFormDisplayed"
-            class="button is-primary is-block is-alt is-large"
-            href="#"
-          >
-            New Goal
-          </a>
-          <div v-if="isFormDisplayed" class="create-form">
-            <form>
-              <div class="field">
-                <div class="control">
-                  <input v-model="newGoal.title" class="input" type="text" placeholder="Goal title" />
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <textarea v-model="newGoal.notes" class="textarea" placeholder="Notes"></textarea>
-                </div>
-              </div>
-              <div class="field is-grouped">
-                <div class="control">
-                  <button 
-                    class="button is-link" 
-                    @click="createNewGoal"
-                    :disabled="!isFormValid"
-                  >
-                    Create Goal
-                  </button>
-                  <button class="button is-text" v-if="isFormDisplayed" @click="toggleFormDisplay">Cancel</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
+        <goal-form
+          :isFormDisplayed="isFormDisplayed"
+          :newGoal="newGoal"
+          :toggleFormDisplay="toggleFormDisplay"
+          :createNewGoal="createNewGoal"
+        ></goal-form>
         <div class="column is-9">
           <div class="box content">
             <goal-item v-for="goal in goals" :goal="goal" :user="user" :key="goal.id"></goal-item>
@@ -68,12 +21,16 @@
 
 <script>
 import Goal from "./components/Goal";
+import Nav from "./components/Nav"
+import Form from "./components/Form";
 import { fetchGoals, fetchCategories, fetchUser } from '@/api'
 
 export default {
   name: "App",
   components: {
-    "goal-item": Goal
+    "nav-bar": Nav,
+    "goal-item": Goal,
+    "goal-form": Form
   },
   data() {
     return {
@@ -117,11 +74,6 @@ export default {
       this.isFormDisplayed = false;
     }
   },
-  computed: {
-    isFormValid() {
-      return this.newGoal.title
-    }
-  }
 };
 </script>
 
