@@ -12,6 +12,8 @@
         <div class="column is-9">
           <div class="box content">
             <goal-item v-for="goal in goals" :goal="goal" :user="user" :key="goal.id"></goal-item>
+            <div class="goal-length">Currently {{ goalLength }} activities</div>
+            <div class="goal-motivation">{{ goalMotivation }}</div>            
           </div>
         </div>
       </div>
@@ -74,6 +76,20 @@ export default {
       this.isFormDisplayed = false;
     }
   },
+  computed: {
+    goalLength() {
+      return Object.keys(this.goals).length
+    },
+    goalMotivation() {
+      if (this.goalLength && this.goalLength < 5) {
+        return 'Nice to see some goals'
+      } else if (this.goalLength >= 5) {
+        return 'So many goals, good job'
+      } else {
+        return 'No goals?'
+      }
+    }
+  }
 };
 </script>
 
@@ -86,18 +102,7 @@ body {
 footer {
   background-color: #f2f6fa !important;
 }
-.topNav {
-  border-top: 5px solid #3498db;
-}
-.topNav .container {
-  border-bottom: 1px solid #e6eaee;
-}
-.container .columns {
-  margin: 3rem 0;
-}
-.navbar-menu .navbar-item {
-  padding: 0 2rem;
-}
+
 aside.menu {
   padding-top: 3rem;
 }
@@ -126,8 +131,11 @@ article.post:last-child {
   padding: 5px;
 }
 
-.navbar-brand > h1 {
-  font-size: 31px;
-  padding: 20px;
+.goal-motivation {
+  float: right;
+}
+
+.goal-length {
+  display: inline-block;
 }
 </style>

@@ -29,5 +29,21 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
+.topNav {
+  border-top: 5px solid #3498db;
+}
+.topNav .container {
+  border-bottom: 1px solid #e6eaee;
+}
+.container .columns {
+  margin: 3rem 0;
+}
+.navbar-menu .navbar-item {
+  padding: 0 2rem;
+}
+.navbar-brand > h1 {
+  font-size: 31px;
+  padding: 20px;
+}
 </style>
