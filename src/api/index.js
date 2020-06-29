@@ -1,3 +1,4 @@
+
 export const fetchGoals = () => {
   return {
     "1546968934": {
@@ -27,7 +28,13 @@ export const createGoal = (goal) => {
   goal.createdAt = new Date()
   goal.updatedAt = new Date()
 
-  return goal
+  return new Promise((res, rej) => {
+    if (!goal.category || !goal.title) {
+      rej(new Error('fill in details'))
+    } else {
+      res(goal)
+    }
+  })
 }
 
 export const fetchCategories = () => {

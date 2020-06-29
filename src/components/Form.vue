@@ -67,14 +67,20 @@ export default {
       this.isFormDisplayed = !this.isFormDisplayed;
     },
     createNewGoal() {
-      const goal = createGoal(this.newGoal);
-      this.$emit("goalCreated", { ...goal });
-      this.newGoal = {
-        title: "",
-        notes: "",
-        category: ""
-      };
-      this.isFormDisplayed = false;
+      createGoal(this.newGoal)
+      .then(goal => {
+        this.$emit("goalCreated", { ...goal });
+        this.newGoal = {
+          title: "",
+          notes: "",
+          category: ""
+        };
+        this.isFormDisplayed = false;
+      })
+      .catch(err => {
+        console.log(err)
+        alert('Fill in details')
+      })
     }
   },
   computed: {
