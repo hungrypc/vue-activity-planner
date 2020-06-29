@@ -4,9 +4,9 @@
     <section class="container">
       <div class="columns">
         <goal-form          
-          :newGoal="newGoal"          
-          :createNewGoal="createNewGoal"
+          
           :categories="categories"
+          @goalCreated="addGoal"
         ></goal-form>
         <div class="column is-9">
           <div class="box content">
@@ -36,11 +36,6 @@ export default {
   data() {
     return {
       user: {},
-      newGoal: {
-        title: "",
-        notes: "",
-        category: ""
-      },
       goals: {},
       categories: {}
     };
@@ -51,27 +46,8 @@ export default {
     this.categories = fetchCategories()
   },
   methods: {
-    createNewGoal() {
-      const id = Math.random().toString(10).substr(2, 10);
-      console.log(this.newGoal.category)
-      this.goals = {
-        ...this.goals,
-        [id]: {
-          id,
-          title: this.newGoal.title,
-          notes: this.newGoal.notes,
-          progress: 0,
-          category: this.newGoal.category,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-      };
-      this.newGoal = {
-        title: "",
-        notes: "",
-        category: ""
-      };
-      this.isFormDisplayed = false;
+    addGoal(newGoal) {
+      console.log(newGoal)
     }
   },
   computed: {

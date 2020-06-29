@@ -21,6 +21,15 @@ export const fetchGoals = () => {
   }
 }
 
+export const createGoal = (goal) => {
+  goal.id = Math.random().toString(10).substr(2, 10)
+  goal.progress = 0
+  goal.createdAt = new Date()
+  goal.updatedAt = new Date()
+
+  return goal
+}
+
 export const fetchCategories = () => {
   return {
     "1546969049": { id: "1546969049", text: "books" },

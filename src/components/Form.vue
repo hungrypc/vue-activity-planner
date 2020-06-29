@@ -20,9 +20,13 @@
         </div>
         <div class="field">
           <div class="control">
-            <select v-model='newGoal.category' class="select">
-              <option disabled value="">Please select a category</option>
-              <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.text }}</option>              
+            <select v-model="newGoal.category" class="select">
+              <option disabled value>Please select a category</option>
+              <option
+                v-for="category in categories"
+                :key="category.id"
+                :value="category.id"
+              >{{ category.text }}</option>
             </select>
           </div>
         </div>
@@ -30,7 +34,7 @@
           <div class="control">
             <button
               class="button is-link"
-              @click="createNewGoal"
+              @click.prevent="createNewGoal"
               :disabled="!isFormValid"
             >Create Goal</button>
             <button class="button is-text" v-if="isFormDisplayed" @click="toggleFormDisplay">Cancel</button>
@@ -42,22 +46,40 @@
 </template>
 
 <script>
+import { createGoal } from "@/api";
 export default {
   name: "goal-form",
   props: {
-    isFormDisplayed: Boolean,
-    newGoal: Object,
-    createNewGoal: Function,
     categories: Object
+  },
+  data() {
+    return {
+      isFormDisplayed: false,
+      newGoal: {
+        title: "",
+        notes: "",
+        category: ""
+      }
+    };
   },
   methods: {
     toggleFormDisplay() {
       this.isFormDisplayed = !this.isFormDisplayed;
     },
+    createNewGoal() {
+      const goal = createGoal(this.newGoal);
+      this.$emit("goalCreated", { ...goal });
+      this.newGoal = {
+        title: "",
+        notes: "",
+        category: ""
+      };
+      this.isFormDisplayed = false;
+    }
   },
   computed: {
     isFormValid() {
-      return this.newGoal.title
+      return this.newGoal.title;
     }
   }
 };
