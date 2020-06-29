@@ -4,7 +4,6 @@
     <section class="container">
       <div class="columns">
         <goal-form          
-          
           :categories="categories"
           @goalCreated="addGoal"
         ></goal-form>
