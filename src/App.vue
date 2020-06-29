@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Goal from "./components/Goal";
 import Nav from "./components/Nav"
 import Form from "./components/Form";
@@ -46,7 +47,8 @@ export default {
   },
   methods: {
     addGoal(newGoal) {
-      console.log(newGoal)
+      // this.goals[newGoal.id] = newGoal
+      Vue.set(this.goals, newGoal.id, newGoal)
     }
   },
   computed: {
