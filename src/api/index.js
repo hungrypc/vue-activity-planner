@@ -1,25 +1,34 @@
+const goals = {
+  "1546968934": {
+    id: "1546968934",
+    title: "Learn Vue.js",
+    notes: "Started new vue course",
+    progress: 0,
+    category: "1546969049",
+    createdAt: 1546969144391,
+    updatedAt: 1546969144391
+  },
+  "1546969212": {
+    id: "1546969212",
+    title: "Read Malcolm Gladwell Books",
+    notes: "Good stuff",
+    progress: 0,
+    category: "1546969049",
+    createdAt: 1546969144391,
+    updatedAt: 1546969144391
+  }
+}
 
 export const fetchGoals = () => {
-  return {
-    "1546968934": {
-      id: "1546968934",
-      title: "Learn Vue.js",
-      notes: "Started new vue course",
-      progress: 0,
-      category: "1546969049",
-      createdAt: 1546969144391,
-      updatedAt: 1546969144391
-    },
-    "1546969212": {
-      id: "1546969212",
-      title: "Read Malcolm Gladwell Books",
-      notes: "Good stuff",
-      progress: 0,
-      category: "1546969049",
-      createdAt: 1546969144391,
-      updatedAt: 1546969144391
+  // simulating fetching from db 
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      res(goals)
+    }, 100)
+    if (goals.length === 0) {
+      rej(new Error('just statisfying linter'))
     }
-  }
+  })
 }
 
 export const createGoal = (goal) => {

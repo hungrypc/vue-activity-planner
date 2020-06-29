@@ -41,7 +41,9 @@ export default {
     };
   },
   created() {
-    this.goals = fetchGoals()
+    fetchGoals().then(data => {
+      this.goals = data
+    })
     this.user = fetchUser()
     this.categories = fetchCategories()
   },
