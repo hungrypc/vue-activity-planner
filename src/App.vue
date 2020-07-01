@@ -16,7 +16,7 @@
               <div v-if="isFetching">
                 Loading...
               </div>
-              <goal-item v-for="goal in goals" :goal="goal" :user="user" :key="goal.id"></goal-item>
+              <goal-item v-for="goal in goals" :goal="goal" :user="user" :key="goal.id" :categories="categories"></goal-item>
               <div v-if="!isFetching">
                 <div class="goal-length">Currently {{ goalLength }} activities</div>
                 <div class="goal-motivation">{{ goalMotivation }}</div>            

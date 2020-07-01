@@ -1,6 +1,8 @@
 <template>
   <article class="post">
     <h4>{{ goal.title }}</h4>
+    <p class="goal-category">{{ capitalize(categories[goal.category].text) }}</p>
+    <p>{{ goal.notes }}</p>
     <div class="media">
       <div class="media-left">
         <p class="image is-32x32">
@@ -23,6 +25,8 @@
 </template>
 
 <script>
+import textUtility from '@/mixins/textUtility'
+
 export default {
   name: "goal-item",
   props: {
@@ -37,8 +41,13 @@ export default {
     user: {
       name: String,
       id: String
+    },
+    categories: {
+      type: Object,
+      required: true
     }
   },
+  mixins: [textUtility],
   computed: {
     computeProgress() {
       const progress = this.goal.progress
@@ -50,11 +59,11 @@ export default {
         return 'green'
       }
     }
-  }
+  },
 };
 </script>
 
-<style>
+<style scoped>
 .media-left img {
   border-radius: 50%;
 }
@@ -68,6 +77,14 @@ article.post {
   margin: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #e6eaee;
+}
+
+.post h4 {
+  margin-bottom: 5px !important;
+}
+
+.goal-category {
+  color: #8f99a3;
 }
 
 .color-red {
