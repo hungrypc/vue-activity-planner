@@ -15,7 +15,8 @@
         </div>
       </div>
       <div class="media-right">
-        <span>Progress Bar Here</span>
+        <span>Progress: <span :class="'color-' + computeProgress">{{ goal.progress }}%</span></span>
+        <!-- <span>Progress: <span :style={"color": computeProgress}>{{ goal.progress }}%</span></span> -->
       </div>
     </div>
   </article>
@@ -37,6 +38,18 @@ export default {
       name: String,
       id: String
     }
+  },
+  computed: {
+    computeProgress() {
+      const progress = this.goal.progress
+      if (progress <= 0) {
+        return 'red'
+      } else if (progress > 0 && progress <= 50) {
+        return 'orange'
+      } else {
+        return 'green'
+      }
+    }
   }
 };
 </script>
@@ -55,5 +68,15 @@ article.post {
   margin: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #e6eaee;
+}
+
+.color-red {
+  color: red;
+}
+.color-orange {
+  color: orange;
+}
+.color-green {
+  color: green;
 }
 </style>

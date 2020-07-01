@@ -3,7 +3,7 @@ const goals = {
     id: "1546968934",
     title: "Learn Vue.js",
     notes: "Started new vue course",
-    progress: 0,
+    progress: 80,
     category: "1546969049",
     createdAt: 1546969144391,
     updatedAt: 1546969144391
@@ -12,7 +12,7 @@ const goals = {
     id: "1546969212",
     title: "Read Malcolm Gladwell Books",
     notes: "Good stuff",
-    progress: 0,
+    progress: 40,
     category: "1546969049",
     createdAt: 1546969144391,
     updatedAt: 1546969144391
