@@ -8,10 +8,20 @@
           @goalCreated="addGoal"
         ></goal-form>
         <div class="column is-9">
-          <div class="box content">
-            <goal-item v-for="goal in goals" :goal="goal" :user="user" :key="goal.id"></goal-item>
-            <div class="goal-length">Currently {{ goalLength }} activities</div>
-            <div class="goal-motivation">{{ goalMotivation }}</div>            
+          <div class="box content" :class="{fetching: isFetching, 'has-error': error}">
+            <div v-if="error">
+              {{ error }}
+            </div>
+            <div v-else>
+              <div v-if="isFetching">
+                Loading...
+              </div>
+              <goal-item v-for="goal in goals" :goal="goal" :user="user" :key="goal.id"></goal-item>
+              <div v-if="!isFetching">
+                <div class="goal-length">Currently {{ goalLength }} activities</div>
+                <div class="goal-motivation">{{ goalMotivation }}</div>            
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -37,12 +47,20 @@ export default {
     return {
       user: {},
       goals: {},
-      categories: {}
+      categories: {},
+      error: null,
+      isFetching: false
     };
   },
   created() {
+    this.isFetching = true
     fetchGoals().then(data => {
       this.goals = data
+      this.isFetching = false
+    })
+    .catch(err => {
+      this.error = err
+      this.isFetching = false
     })
     this.user = fetchUser()
     this.categories = fetchCategories()
@@ -78,6 +96,14 @@ body {
 }
 footer {
   background-color: #f2f6fa !important;
+}
+
+.fetching {
+  border: 2px solid teal;
+}
+
+.has-error {
+  border: 2px solid red;
 }
 
 aside.menu {

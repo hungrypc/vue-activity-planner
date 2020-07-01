@@ -27,7 +27,7 @@ export const fetchGoals = () => {
     }
     setTimeout(() => {
       res(goals)
-    }, 100)
+    }, 500)
   })
 }
 
