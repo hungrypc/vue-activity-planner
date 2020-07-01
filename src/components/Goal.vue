@@ -12,7 +12,7 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <a href="#">{{ user.name }}</a> updated {{ goal.updatedAt }} minutes ago &nbsp;
+            <a href="#">{{ user.name }}</a> updated {{ goal.updatedAt | timePrettier }} &nbsp;
           </p>
         </div>
       </div>
