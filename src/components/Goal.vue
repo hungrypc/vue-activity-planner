@@ -1,7 +1,7 @@
 <template>
   <article class="post">
     <h4>{{ goal.title }}</h4>
-    <p class="goal-category">{{ capitalize(categories[goal.category].text) }}</p>
+    <p class="goal-category">{{ textUtility_capitalize(categories[goal.category].text) }}</p>
     <p>{{ goal.notes }}</p>
     <div class="media">
       <div class="media-left">
