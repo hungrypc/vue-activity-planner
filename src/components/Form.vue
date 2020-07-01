@@ -66,26 +66,29 @@ export default {
     toggleFormDisplay() {
       this.isFormDisplayed = !this.isFormDisplayed;
     },
+    resetNewGoal() {
+      this.newGoal = {
+        title: "",
+        notes: "",
+        category: ""
+      };
+    },
     createNewGoal() {
       createGoal(this.newGoal)
-      .then(goal => {
-        this.$emit("goalCreated", { ...goal });
-        this.newGoal = {
-          title: "",
-          notes: "",
-          category: ""
-        };
-        this.isFormDisplayed = false;
-      })
-      .catch(err => {
-        console.log(err)
-        alert('Fill in details')
-      })
+        .then(goal => {
+          this.$emit("goalCreated", { ...goal });
+          this.resetNewGoal()
+          this.isFormDisplayed = false;
+        })
+        .catch(err => {
+          console.log(err);
+          alert("Fill in details");
+        });
     }
   },
   computed: {
     isFormValid() {
-      return this.newGoal.title;
+      return this.newGoal.title && this.newGoal.category;
     }
   }
 };

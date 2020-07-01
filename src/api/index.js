@@ -22,12 +22,12 @@ const goals = {
 export const fetchGoals = () => {
   // simulating fetching from db 
   return new Promise((res, rej) => {
-    setTimeout(() => {
-      res(goals)
-    }, 100)
     if (goals.length === 0) {
       rej(new Error('just statisfying linter'))
     }
+    setTimeout(() => {
+      res(goals)
+    }, 100)
   })
 }
 
