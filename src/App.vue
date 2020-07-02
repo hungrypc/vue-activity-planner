@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isDataLoaded">
     <nav-bar></nav-bar>
     <section class="container">
       <div class="columns">
@@ -46,8 +46,8 @@ export default {
   data() {
     return {
       user: {},
-      goals: {},
-      categories: {},
+      goals: null,
+      categories: null,
       error: null,
       isFetching: false
     };
@@ -63,7 +63,9 @@ export default {
       this.isFetching = false
     })
     this.user = fetchUser()
-    this.categories = fetchCategories()
+    fetchCategories().then(categories => {
+      this.categories = categories
+    })
   },
   methods: {
     addGoal(newGoal) {
@@ -83,6 +85,9 @@ export default {
       } else {
         return 'No goals?'
       }
+    },
+    isDataLoaded() {
+      return this.goals && this.categories
     }
   }
 };
