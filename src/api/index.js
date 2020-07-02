@@ -23,3 +23,7 @@ export const fetchUser = () => {
     id: "-Aj34jknvncx98812"
   }
 }
+
+export const deleteGoal = (goal) => {
+  return fakeApi.delete('goals', goal)
+}

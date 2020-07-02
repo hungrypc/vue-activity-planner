@@ -16,7 +16,14 @@
               <div v-if="isFetching">
                 Loading...
               </div>
-              <goal-item v-for="goal in goals" :goal="goal" :user="user" :key="goal.id" :categories="categories"></goal-item>
+              <goal-item 
+                v-for="goal in goals" 
+                :goal="goal" 
+                :user="user" 
+                :key="goal.id" 
+                :categories="categories"
+                @goalDeleted="handleGoalDelete"
+              ></goal-item>
               <div v-if="!isFetching">
                 <div class="goal-length">Currently {{ goalLength }} activities</div>
                 <div class="goal-motivation">{{ goalMotivation }}</div>            
@@ -34,7 +41,7 @@ import Vue from 'vue'
 import Goal from "./components/Goal";
 import Nav from "./components/Nav"
 import Form from "./components/Form";
-import { fetchGoals, fetchCategories, fetchUser } from '@/api'
+import { fetchGoals, fetchCategories, fetchUser, deleteGoal } from '@/api'
 
 export default {
   name: "App",
@@ -71,6 +78,11 @@ export default {
     addGoal(newGoal) {
       // this.goals[newGoal.id] = newGoal
       Vue.set(this.goals, newGoal.id, newGoal)
+    },
+    handleGoalDelete(goal) {
+      deleteGoal(goal).then(deletedGoal => {
+        Vue.delete(this.goals, deletedGoal.id)
+      })
     }
   },
   computed: {

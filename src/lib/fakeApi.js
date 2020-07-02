@@ -47,6 +47,16 @@ class FakeApi {
       res(item)
     })
   }
+
+  delete(resource, item) {
+    return new Promise((res, rej) => {
+      if (!item) {
+        rej(new Error('nothing to delete'))
+      }
+      delete data[resource][item.id]
+      res(item)
+    })
+  }
 }
 
 export default new FakeApi()

@@ -1,6 +1,9 @@
 <template>
   <article class="post">
-    <h4>{{ goal.title }}</h4>
+    <div class="goal-title-wrapper">
+      <h4 class="goal-title">{{ goal.title }}</h4>
+      <i @click="toggleMenu" class="fas fa-cog goal-settings"></i>
+    </div>
     <p class="goal-category">{{ textUtility_capitalize(categories[goal.category].text) }}</p>
     <p>{{ goal.notes }}</p>
     <div class="media">
@@ -19,6 +22,10 @@
       <div class="media-right">
         <span>Progress: <span :class="'color-' + computeProgress">{{ goal.progress }}%</span></span>
         <!-- <span>Progress: <span :style={"color": computeProgress}>{{ goal.progress }}%</span></span> -->
+      </div>
+      <div v-if="isMenuDisplayed" class="goal-control">
+        <a class="button is-warning">Edit</a>
+        <a class="button is-danger" @click="deleteGoal">Delete</a>
       </div>
     </div>
   </article>
@@ -47,6 +54,11 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      isMenuDisplayed: false
+    }
+  },
   mixins: [textUtility],
   computed: {
     computeProgress() {
@@ -60,10 +72,18 @@ export default {
       }
     }
   },
+  methods: {
+    toggleMenu() {
+      this.isMenuDisplayed = !this.isMenuDisplayed
+    },
+    deleteGoal() {
+      this.$emit('goalDeleted', this.goal)
+    }
+  }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .media-left img {
   border-radius: 50%;
 }
@@ -95,5 +115,22 @@ article.post {
 }
 .color-green {
   color: green;
+}
+
+.goal-settings {
+  float: right;
+  font-size: 22px;
+  
+  &:hover {
+    cursor: pointer;
+  };
+}
+
+.goal-control {
+  margin: 20px 0 0 0;
+
+  a {
+    margin-right: 5px;
+  }
 }
 </style>
