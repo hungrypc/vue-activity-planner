@@ -29,7 +29,7 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <a href="#">Filip Jerga</a> updated {{ goal.updatedAt | timePrettier }} &nbsp;
+            <a href="#">{{ user.name }}</a> updated {{ goal.updatedAt | timePrettier }} &nbsp;
           </p>
         </div>
       </div>
@@ -65,7 +65,11 @@ export default {
     goal: {
       type: Object,
       required: true
-    }
+    },
+    user: {
+      name: String,
+      id: String
+    },
   },
   data () {
     return {
