@@ -41,6 +41,8 @@ import Vue from 'vue'
 import Goal from "./components/Goal";
 import Nav from "./components/Nav"
 import Form from "./components/Form";
+
+import store from './store'
 import { fetchGoals, fetchCategories, fetchUser, deleteGoal } from '@/api'
 
 export default {
