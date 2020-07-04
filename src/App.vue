@@ -43,7 +43,7 @@ import Nav from "./components/Nav"
 import Form from "./components/Form";
 
 import store from './store'
-import { fetchGoals, fetchCategories, fetchUser, deleteGoal } from '@/api'
+// import { fetchGoals, fetchCategories, fetchUser, deleteGoal } from '@/api'
 
 export default {
   name: "App",
@@ -53,27 +53,28 @@ export default {
     "goal-form": Form
   },
   data() {
+    const { state: { goals, categories } } = store
     return {
       user: {},
-      goals: null,
-      categories: null,
+      goals,
+      categories,
       error: null,
       isFetching: false
     };
   },
   created() {
     this.isFetching = true
-    fetchGoals().then(data => {
-      this.goals = data
+    store.fetchGoals().then(data => {
+      console.log(data)
       this.isFetching = false
     })
     .catch(err => {
       this.error = err
       this.isFetching = false
     })
-    this.user = fetchUser()
-    fetchCategories().then(categories => {
-      this.categories = categories
+    this.user = store.fetchUser()
+    store.fetchCategories().then(categories => {
+      console.log(categories)
     })
   },
   methods: {
@@ -82,7 +83,7 @@ export default {
       Vue.set(this.goals, newGoal.id, newGoal)
     },
     handleGoalDelete(goal) {
-      deleteGoal(goal).then(deletedGoal => {
+      store.deleteGoal(goal).then(deletedGoal => {
         Vue.delete(this.goals, deletedGoal.id)
       })
     }

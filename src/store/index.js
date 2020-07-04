@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import fakeApi from '@/lib/fakeApi'
 
 const store = {
@@ -7,7 +8,15 @@ const store = {
   },
 
   fetchGoals() {
-  return fakeApi.get('goals')
+    return fakeApi.get('goals')
+      .then(goals => {
+
+        Object.keys(goals).forEach(key => {
+          Vue.set(this.state.goals, key, goals[key])
+        })
+
+        return goals
+    })
   },
 
   createGoal(goal) {
@@ -21,6 +30,12 @@ const store = {
 
   fetchCategories() {
     return fakeApi.get('categories')
+      .then(categories => {
+        Object.keys(categories).forEach(key => {
+          Vue.set(this.state.categories, key, categories[key])
+        })
+        return categories
+      })
   },
 
   fetchUser() {
