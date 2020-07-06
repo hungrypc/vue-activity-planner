@@ -64,8 +64,7 @@ export default {
   },
   created() {
     this.isFetching = true
-    store.fetchGoals().then(data => {
-      console.log(data)
+    store.fetchGoals().then(() => {      
       this.isFetching = false
     })
     .catch(err => {
@@ -73,9 +72,11 @@ export default {
       this.isFetching = false
     })
     this.user = store.fetchUser()
-    store.fetchCategories().then(categories => {
-      console.log(categories)
-    })
+    store.fetchCategories()
+    // no idea why he included this, shit instructor:
+    //   .then(categories => {
+    //   console.log(categories)
+    // })
   },
   methods: {
     // addGoal(newGoal) {
@@ -102,7 +103,13 @@ export default {
       }
     },
     isDataLoaded() {
-      return this.goals && this.categories
+      return this.goalsLength && this.categoriesLength
+    },
+    goalsLength() {
+      return Object.keys(this.goals).length
+    },
+    categoriesLength() {
+      return Object.keys(this.categories).length
     }
   }
 };

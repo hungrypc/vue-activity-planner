@@ -2,12 +2,12 @@
   <article class="post">
     <div class="goal-title">
       <!-- TODO: Add v-model -->
-      <input v-model="goal.title" type="text" class="input">
+      <input v-model="goalToUpdate.title" type="text" class="input">
       <i class="fas fa-cog goal-settings" @click="isMenuDisplayed = !isMenuDisplayed" />
     </div>
     <div class="goal-category">
       <!-- TODO: add v-model and iterate categories in option  -->
-      <select v-model="goal.category" class="select">
+      <select v-model="goalToUpdate.category" class="select">
         <option disabled value="">Please select one</option>
         <option v-for="category in categories"
                 :key="category.id"
@@ -16,7 +16,7 @@
     </div>
     <div class="control goal-notes">
       <!-- TODO: Add v-model here -->
-      <textarea v-model="goal.notes"
+      <textarea v-model="goalToUpdate.notes"
                 class="textarea"
                 placeholder="Write some notes here" />
     </div>
@@ -29,18 +29,18 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <a href="#">{{ user.name }}</a> updated {{ goal.updatedAt | timePrettier }} &nbsp;
+            <a href="#">{{ user.name }}</a> updated {{ goalToUpdate.updatedAt | timePrettier }} &nbsp;
           </p>
         </div>
       </div>
       <div class="media-right">
         <!-- TODO: Add v-model here -->
         <input id="progress"
-               v-model="goal.progress"
+               v-model="goalToUpdate.progress"
                type="range"
                name="progress"
                min="0" max="100" value="90" step="10">
-        <label for="progress">{{ goal.progress }} %</label>
+        <label for="progress">{{ goalToUpdate.progress }} %</label>
       </div>
     </div>
     <div v-if="isMenuDisplayed" class="goal-control">
@@ -54,6 +54,7 @@
 
 <script>
 import textUtility from '@/mixins/textUtility'
+import store from '@/store'
 
 export default {
   mixins: [textUtility],
@@ -73,12 +74,16 @@ export default {
   },
   data () {
     return {
-      isMenuDisplayed: true
+      isMenuDisplayed: true,
+      goalToUpdate: {...this.goal}
     }
   },
   methods: {
     updateGoal() {
-      console.log(this.goal)
+      store.updateGoal(this.goalToUpdate)
+        .then(() => {
+          this.$emit('toggleUpdate', false)
+        })
     }
   }
 }

@@ -29,6 +29,17 @@ const store = {
     return fakeApi.post('goals', goal)
       .then(createdGoal => {
         this.setItem('goals', createdGoal.id, createdGoal)
+        return createdGoal
+      })
+  },
+
+  updateGoal(goal) {
+    goal.updatedAt = new Date()
+
+    return fakeApi.post('goals', goal)
+      .then(updatedGoal => {
+        this.setItem('goals', updatedGoal.id, updatedGoal)
+        return updatedGoal
       })
   },
 
