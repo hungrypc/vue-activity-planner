@@ -33,6 +33,7 @@
 
 <script>
 import textUtility from '@/mixins/textUtility'
+import store from '@/store'
 
 export default {
   name: "goal-item",
@@ -77,7 +78,8 @@ export default {
       this.isMenuDisplayed = !this.isMenuDisplayed
     },
     deleteGoal() {
-      this.$emit('goalDeleted', this.goal)
+      // this.$emit('goalDeleted', this.goal)
+      store.deleteGoal(this.goal)
     }
   }
 };

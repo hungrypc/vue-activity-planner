@@ -46,7 +46,9 @@
 </template>
 
 <script>
-import { createGoal } from "@/api";
+// import { createGoal } from "@/api";
+import store from '@/store'
+
 export default {
   name: "goal-form",
   props: {
@@ -74,16 +76,21 @@ export default {
       };
     },
     createNewGoal() {
-      createGoal(this.newGoal)
-        .then(goal => {
-          this.$emit("goalCreated", { ...goal });
+      store.createGoal({...this.newGoal})
+        .then(() => {
           this.resetNewGoal()
-          this.isFormDisplayed = false;
+          this.isFormDisplayed = false
         })
-        .catch(err => {
-          console.log(err);
-          alert("Fill in details");
-        });
+      // createGoal(this.newGoal)
+      //   .then(goal => {
+      //     this.$emit("goalCreated", { ...goal });
+      //     this.resetNewGoal()
+      //     this.isFormDisplayed = false;
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //     alert("Fill in details");
+      //   });
     }
   },
   computed: {

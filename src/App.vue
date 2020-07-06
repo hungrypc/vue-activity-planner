@@ -5,7 +5,7 @@
       <div class="columns">
         <goal-form          
           :categories="categories"
-          @goalCreated="addGoal"
+          
         ></goal-form>
         <div class="column is-9">
           <div class="box content" :class="{fetching: isFetching, 'has-error': error}">
@@ -22,7 +22,7 @@
                 :user="user" 
                 :key="goal.id" 
                 :categories="categories"
-                @goalDeleted="handleGoalDelete"
+                
               ></goal-item>
               <div v-if="!isFetching">
                 <div class="goal-length">Currently {{ goalLength }} activities</div>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
+// import Vue from 'vue'
 import Goal from "./components/Goal";
 import Nav from "./components/Nav"
 import Form from "./components/Form";
@@ -78,15 +78,15 @@ export default {
     })
   },
   methods: {
-    addGoal(newGoal) {
-      // this.goals[newGoal.id] = newGoal
-      Vue.set(this.goals, newGoal.id, newGoal)
-    },
-    handleGoalDelete(goal) {
-      store.deleteGoal(goal).then(deletedGoal => {
-        Vue.delete(this.goals, deletedGoal.id)
-      })
-    }
+    // addGoal(newGoal) {
+    //   // this.goals[newGoal.id] = newGoal
+    //   Vue.set(this.goals, newGoal.id, newGoal)
+    // },
+    // handleGoalDelete(goal) {
+    //   store.deleteGoal(goal).then(deletedGoal => {
+    //     Vue.delete(this.goals, deletedGoal.id)
+    //   })
+    // }
   },
   computed: {
     goalLength() {

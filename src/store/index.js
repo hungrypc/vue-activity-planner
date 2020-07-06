@@ -11,9 +11,10 @@ const store = {
     return fakeApi.get('goals')
       .then(goals => {
 
-        Object.keys(goals).forEach(key => {
-          Vue.set(this.state.goals, key, goals[key])
-        })
+        Object.keys(goals).forEach(key => 
+          // Vue.set(this.state.goals, key, goals[key])
+          this.setItem('goals', key, goals[key])
+        )
 
         return goals
     })
@@ -26,16 +27,24 @@ const store = {
     goal.updatedAt = new Date()
 
     return fakeApi.post('goals', goal)
+      .then(createdGoal => {
+        this.setItem('goals', createdGoal.id, createdGoal)
+      })
   },
 
   fetchCategories() {
     return fakeApi.get('categories')
       .then(categories => {
-        Object.keys(categories).forEach(key => {
-          Vue.set(this.state.categories, key, categories[key])
-        })
+        Object.keys(categories).forEach(key => 
+          // Vue.set(this.state.categories, key, categories[key])
+          this.setItem('categories', key, categories[key])
+        )
         return categories
       })
+  },
+
+  setItem(resource, id, item) {
+    Vue.set(this.state[resource], id, item)
   },
 
   fetchUser() {
@@ -47,6 +56,10 @@ const store = {
 
   deleteGoal(goal) {
     return fakeApi.delete('goals', goal)
+    .then(deletedGoal => {
+      Vue.delete(this.state.goals, goal.id)
+      return deletedGoal
+    })
   }
 }
 
