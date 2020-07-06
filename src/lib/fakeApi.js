@@ -26,6 +26,20 @@ const data = {
 }
 
 class FakeApi {
+
+  seedDb() {
+    this.commitData(data)
+  }
+
+  commitData(data) {
+    localStorage.setItem('goal_data', JSON.stringify(data))
+  }
+
+  getData() {
+    const goalData = localStorage.getItem('goal_data')
+    return JSON.parse(goalData)
+  }
+
   get(resource) {
     // simulating fetching from db 
     return new Promise((res, rej) => {
@@ -33,6 +47,7 @@ class FakeApi {
         rej(new Error('just statisfying linter'))
       }
       setTimeout(() => {
+        const data = this.getData()
         res({...data[resource]})
       }, 500)
     })
@@ -43,7 +58,9 @@ class FakeApi {
       if (!item) {
         rej(new Error('nothing to save'))
       }
+      const data = this.getData()
       data[resource][item.id] = item
+      this.commitData(data)
       res(item)
     })
   }
@@ -53,7 +70,9 @@ class FakeApi {
       if (!item) {
         rej(new Error('nothing to delete'))
       }
+      const data = this.getData()
       delete data[resource][item.id]
+      this.commitData(data)
       res(item)
     })
   }

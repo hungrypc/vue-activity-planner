@@ -1,32 +1,26 @@
 <template>
-  <div v-if="isDataLoaded">
+  <div>
     <nav-bar></nav-bar>
     <section class="container">
       <div class="columns">
-        <goal-form          
-          :categories="categories"
-          
-        ></goal-form>
+        <goal-form :categories="categories"></goal-form>
         <div class="column is-9">
           <div class="box content" :class="{fetching: isFetching, 'has-error': error}">
-            <div v-if="error">
-              {{ error }}
-            </div>
+            <div v-if="error">{{ error }}</div>
             <div v-else>
-              <div v-if="isFetching">
-                Loading...
+              <div v-if="isFetching">Loading...</div>
+              <div v-if="isDataLoaded">
+                <goal-item
+                  v-for="goal in goals"
+                  :goal="goal"
+                  :user="user"
+                  :key="goal.id"
+                  :categories="categories"
+                ></goal-item>
               </div>
-              <goal-item 
-                v-for="goal in goals" 
-                :goal="goal" 
-                :user="user" 
-                :key="goal.id" 
-                :categories="categories"
-                
-              ></goal-item>
               <div v-if="!isFetching">
                 <div class="goal-length">Currently {{ goalLength }} activities</div>
-                <div class="goal-motivation">{{ goalMotivation }}</div>            
+                <div class="goal-motivation">{{ goalMotivation }}</div>
               </div>
             </div>
           </div>
@@ -39,10 +33,11 @@
 <script>
 // import Vue from 'vue'
 import Goal from "./components/Goal";
-import Nav from "./components/Nav"
+import Nav from "./components/Nav";
 import Form from "./components/Form";
 
-import store from './store'
+import store from "./store";
+// import fakeApi from '@/lib/fakeApi'
 // import { fetchGoals, fetchCategories, fetchUser, deleteGoal } from '@/api'
 
 export default {
@@ -53,7 +48,9 @@ export default {
     "goal-form": Form
   },
   data() {
-    const { state: { goals, categories } } = store
+    const {
+      state: { goals, categories }
+    } = store;
     return {
       user: {},
       goals,
@@ -63,16 +60,21 @@ export default {
     };
   },
   created() {
-    this.isFetching = true
-    store.fetchGoals().then(() => {      
-      this.isFetching = false
-    })
-    .catch(err => {
-      this.error = err
-      this.isFetching = false
-    })
-    this.user = store.fetchUser()
-    store.fetchCategories()
+    // only run once to populate local storage
+    // fakeApi.seedDb()
+
+    this.isFetching = true;
+    store
+      .fetchGoals()
+      .then(() => {
+        this.isFetching = false;
+      })
+      .catch(err => {
+        this.error = err;
+        this.isFetching = false;
+      });
+    this.user = store.fetchUser();
+    store.fetchCategories();
     // no idea why he included this, shit instructor:
     //   .then(categories => {
     //   console.log(categories)
@@ -91,25 +93,25 @@ export default {
   },
   computed: {
     goalLength() {
-      return Object.keys(this.goals).length
+      return Object.keys(this.goals).length;
     },
     goalMotivation() {
       if (this.goalLength && this.goalLength < 5) {
-        return 'Nice to see some goals'
+        return "Nice to see some goals";
       } else if (this.goalLength >= 5) {
-        return 'So many goals, good job'
+        return "So many goals, good job";
       } else {
-        return 'No goals?'
+        return "No goals?";
       }
     },
     isDataLoaded() {
-      return this.goalsLength && this.categoriesLength
+      return this.goalsLength && this.categoriesLength;
     },
     goalsLength() {
-      return Object.keys(this.goals).length
+      return Object.keys(this.goals).length;
     },
     categoriesLength() {
-      return Object.keys(this.categories).length
+      return Object.keys(this.categories).length;
     }
   }
 };
