@@ -36,7 +36,7 @@
       <div class="media-right">
         <!-- TODO: Add v-model here -->
         <input id="progress"
-               v-model="goalToUpdate.progress"
+               v-model.number="goalToUpdate.progress"
                type="range"
                name="progress"
                min="0" max="100" value="90" step="10">
