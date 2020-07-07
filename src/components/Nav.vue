@@ -11,9 +11,10 @@
       <div class="container">
         <div class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item is-active" href="#">Newest</a>
-            <a class="navbar-item" href="#">In Progress</a>
-            <a class="navbar-item" href="#">Finished</a>
+            <a @click="emitFilter('all')" class="navbar-item is-active" >All</a>
+            <a @click="emitFilter('inprogress')" class="navbar-item is-active" >In Progress</a>
+            <a @click="emitFilter('finished')" class="navbar-item" >Finished</a>
+            <a @click="emitFilter('notstarted')" class="navbar-item" >Not Started</a>
           </div>
         </div>
       </div>
@@ -24,7 +25,12 @@
 <script>
 export default {
   name: 'nav-bar',
-  props: []
+  props: [],
+  methods: {
+    emitFilter(filterOption) {
+      this.$emit('filterSelected', filterOption)
+    }
+  }
 }
 </script>
 

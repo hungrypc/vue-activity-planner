@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar></nav-bar>
+    <nav-bar @filterSelected="setFilter"></nav-bar>
     <section class="container">
       <div class="columns">
         <goal-form :categories="categories"></goal-form>
@@ -11,7 +11,7 @@
               <div v-if="isFetching">Loading...</div>
               <div v-if="isDataLoaded">
                 <goal-item
-                  v-for="goal in goals"
+                  v-for="goal in filteredGoals"
                   :goal="goal"
                   :user="user"
                   :key="goal.id"
@@ -56,7 +56,8 @@ export default {
       goals,
       categories,
       error: null,
-      isFetching: false
+      isFetching: false,
+      filter: 'all'
     };
   },
   created() {
@@ -81,6 +82,9 @@ export default {
     // })
   },
   methods: {
+    setFilter(filterOption) {
+      this.filter = filterOption
+    }
     // addGoal(newGoal) {
     //   // this.goals[newGoal.id] = newGoal
     //   Vue.set(this.goals, newGoal.id, newGoal)
@@ -112,6 +116,15 @@ export default {
     },
     categoriesLength() {
       return Object.keys(this.categories).length;
+    },
+    filteredGoals() {
+      if (this.filter === 'all') {
+        return this.goals
+      } else if (this.filter === 'inprogress') {
+        return this.goals.filter(goal => goal.progress > 0 && goal.progress < 100)
+      }
+
+      return this.goals
     }
   }
 };
