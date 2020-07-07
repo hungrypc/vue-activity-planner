@@ -118,10 +118,16 @@ export default {
       return Object.keys(this.categories).length;
     },
     filteredGoals() {
+      const allGoals = Object.values(this.goals)
+
       if (this.filter === 'all') {
         return this.goals
       } else if (this.filter === 'inprogress') {
-        return this.goals.filter(goal => goal.progress > 0 && goal.progress < 100)
+        return allGoals.filter(goal => goal.progress > 0 && goal.progress < 100)
+      } else if (this.filter === 'finished') {
+        return allGoals.filter(goal => goal.progress > 99)
+      } else if (this.filter === 'notstarted') {
+        return allGoals.filter(goal => goal.progress === 0)
       }
 
       return this.goals

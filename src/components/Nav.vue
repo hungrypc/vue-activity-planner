@@ -11,10 +11,10 @@
       <div class="container">
         <div class="navbar-menu">
           <div class="navbar-start">
-            <a @click="emitFilter('all')" class="navbar-item is-active" >All</a>
-            <a @click="emitFilter('inprogress')" class="navbar-item is-active" >In Progress</a>
-            <a @click="emitFilter('finished')" class="navbar-item" >Finished</a>
-            <a @click="emitFilter('notstarted')" class="navbar-item" >Not Started</a>
+            <a @click="emitFilter('all')" :class="{'is-active': filterOption === 'all'}" class="navbar-item" >All</a>
+            <a @click="emitFilter('inprogress')" :class="{'is-active': filterOption === 'inprogress'}" class="navbar-item" >In Progress</a>
+            <a @click="emitFilter('finished')" :class="{'is-active': filterOption === 'finished'}" class="navbar-item" >Finished</a>
+            <a @click="emitFilter('notstarted')" :class="{'is-active': filterOption === 'notstarted'}" class="navbar-item" >Not Started</a>
           </div>
         </div>
       </div>
@@ -26,8 +26,14 @@
 export default {
   name: 'nav-bar',
   props: [],
+  data () {
+    return {
+      filterOption: 'all'
+    }
+  },
   methods: {
     emitFilter(filterOption) {
+      this.filterOption = filterOption
       this.$emit('filterSelected', filterOption)
     }
   }
